@@ -63,13 +63,15 @@ static const char *termcmd[]  = { "kitty", NULL };
 static const char *browsercmd[]  = { "librewolf", NULL };
 static const char *file_expocmd[]  = { "nemo", NULL };
 static const char *startupcmd[] = { "/bin/sh", "-c", "~/suckless-btw/scripts/start.sh", NULL };
-
+static const char *wallpapercmd[] = { "/bin/sh", "-c", "~/suckless-btw/scripts/wallpaper.sh", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_r,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_q,      spawn,          {.v = termcmd } },
     { MODKEY,                       XK_e,      spawn,          {.v = file_expocmd} },
+    { MODKEY,                       XK_w,      spawn,          {.v = wallpapercmd} },
+    { MODKEY,                       XK_f,      spawn,          {.v = browsercmd} },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -82,7 +84,6 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_c,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_p,      setlayout,      {.v = &layouts[1]} },
-    { MODKEY,                       XK_f,      spawn,          {.v =  browsercmd} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
@@ -101,7 +102,7 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY,             XK_m,      quit,           {0} },
+	{ MODKEY|ShiftMask,             XK_m,      quit,           {0} },
 };
 
 /* button definitions */
