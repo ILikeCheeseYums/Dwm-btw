@@ -202,6 +202,7 @@ static void setfullscreen(Client *c, int fullscreen);
 static void setlayout(const Arg *arg);
 static void setmfact(const Arg *arg);
 static void setup(void);
+static void runstartup(void);
 static void seturgent(Client *c, int urg);
 static void showhide(Client *c);
 static void spawn(const Arg *arg);
@@ -1611,6 +1612,7 @@ setup(void)
 	XSelectInput(dpy, root, wa.event_mask);
 	grabkeys();
 	focus(NULL);
+	runstartup();
 }
 
 void
@@ -1641,6 +1643,16 @@ showhide(Client *c)
 		/* hide clients bottom up */
 		showhide(c->snext);
 		XMoveWindow(dpy, c->win, WIDTH(c) * -2, c->y);
+	}
+}
+
+void
+runstartup(void)
+{
+	if (fork() == 0) {
+		setsid();
+		execvp(((char **)startupcmd)[0], (char **)startupcmd);
+		die("dwm: execvp '%s' failed:", ((char **)startupcmd)[0]);
 	}
 }
 
